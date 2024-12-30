@@ -1,8 +1,5 @@
 import java.io.*;
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class GrupoII {
 
@@ -59,7 +56,7 @@ public class GrupoII {
         }
     }
 
-    //Adiciona novos participantes à lista, valida o nome e permite adicionar múltiplos participantes.
+    // 1. Adiciona novos participantes à lista, valida o nome e permite adicionar múltiplos participantes.
     private static void adicionarParticipante() {
         boolean continuar = true;
 
@@ -121,7 +118,7 @@ public class GrupoII {
         }
     }
 
-    //Mostra o ranking dos participantes ordenado por número de vitórias.
+    //2. Mostra o ranking dos participantes ordenado por número de vitórias.
     private static void mostrarRanking() {
         if (nomesParticipantes.isEmpty()) {
             System.out.println("Não há participantes registados no momento.");
@@ -144,7 +141,7 @@ public class GrupoII {
         System.out.printf("Total de participantes no ranking: %d%n", nomesParticipantes.size());
     }
 
-    //Realiza uma partida onde os participantes tentam adivinhar o peso alvo.
+    //3. Um jogo onde os participantes tentam adivinhar o peso alvo.
     private static void Jogar() {
         if (nomesParticipantes.isEmpty()) {
             System.out.println("Não existem jogadores registados.");
@@ -158,8 +155,16 @@ public class GrupoII {
         double[] palpites = new double[nomesParticipantes.size()];
 
         // Cada participante insere o seu palpite
+
+        ArrayList<Integer> indices = new ArrayList<>();
         for (int i = 0; i < nomesParticipantes.size(); i++) {
-            palpites[i] = lerPalpite(nomesParticipantes.get(i), 0, 10);
+            indices.add(i);
+        }
+        Collections.shuffle(indices);
+
+        for (int i = 0; i < indices.size(); i++) {
+            int indexRandom = indices.get(i);
+            palpites[indexRandom] = lerPalpite( nomesParticipantes.get(indexRandom), 0, 10);
         }
 
         String vencedor = null;
@@ -209,7 +214,7 @@ public class GrupoII {
         }
     }
 
-    //Guarda o ranking atual num ficheiro.
+    //4. Guarda o ranking atual num ficheiro.
     private static void guardarRanking() {
         if (nomesParticipantes.isEmpty()) {
             System.out.println("Não há participantes para guardar o ranking.");
